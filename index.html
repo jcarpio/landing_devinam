@@ -1007,6 +1007,66 @@
     .header-cta { display: none; }
   }
 
+
+  /* ── GOOGLE FORM IFRAME ── */
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Override Google Form white background via CSS tricks */
+  #gform-wrap {
+    background: #080608;
+  }
+
+  /* Colorize scrollbar inside iframe area */
+  #gform-wrap::-webkit-scrollbar { width: 4px; }
+  #gform-wrap::-webkit-scrollbar-track { background: var(--dark); }
+  #gform-wrap::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  .payment-section {
+    margin-top: 48px;
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .payment-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+    letter-spacing: 6px;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .stripe-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--gold-pale), var(--gold));
+    color: var(--black);
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 20px 56px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+  .stripe-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(201,168,76,0.3);
+  }
+  .payment-note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 20px;
+  }
+
   /* ═══════════════════════════
      SCROLL ANIMATIONS
   ════════════════════════════ */
@@ -1389,142 +1449,67 @@
       <h2>Entra no Desafio</h2>
       <p class="form-sub">Preenche com atenção. Este é o teu primeiro passo real.</p>
     </div>
-    
-    <div class="form-wrapper reveal reveal-delay-1">
-      <form id="challengeForm" onsubmit="handleSubmit(event)">
 
-        <!-- DADOS BÁSICOS -->
-        <p class="form-section-title">— Dados Pessoais</p>
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="nome">Nome completo *</label>
-            <input type="text" id="nome" name="nome" placeholder="O teu nome" required>
-          </div>
-          <div class="form-group">
-            <label for="idade">Idade</label>
-            <input type="text" id="idade" name="idade" placeholder="A tua idade">
-          </div>
-        </div>
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="email">Email *</label>
-            <input type="email" id="email" name="email" placeholder="o.teu@email.com" required>
-          </div>
-          <div class="form-group">
-            <label for="whatsapp">Número de WhatsApp *</label>
-            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+351 900 000 000" required>
-          </div>
-        </div>
+    <div class="reveal reveal-delay-1" style="position:relative;">
 
-        <div class="form-divider"></div>
-
-        <!-- CONTEXTO PESSOAL -->
-        <p class="form-section-title">— O Teu Contexto</p>
-        
-        <div class="form-group">
-          <label>Experiência com práticas de respiração, meditação ou movimento consciente?</label>
-          <div class="radio-group">
-            <label class="radio-item"><input type="radio" name="experiencia" value="nenhuma"> Nenhuma</label>
-            <label class="radio-item"><input type="radio" name="experiencia" value="alguma"> Alguma</label>
-            <label class="radio-item"><input type="radio" name="experiencia" value="regular"> Regular</label>
-          </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="motivacao">O que te trouxe a este desafio? *</label>
-          <textarea id="motivacao" name="motivacao" placeholder="Partilha o que sentes…" required></textarea>
-        </div>
-        
-        <div class="form-group">
-          <label>Como te sentes neste momento?</label>
-          <div class="radio-group">
-            <label class="radio-item"><input type="radio" name="estado" value="sem_energia"> Sem energia</label>
-            <label class="radio-item"><input type="radio" name="estado" value="ansiosa"> Ansiosa</label>
-            <label class="radio-item"><input type="radio" name="estado" value="desconectada"> Desconectada</label>
-            <label class="radio-item"><input type="radio" name="estado" value="estavel"> Estável</label>
-            <label class="radio-item"><input type="radio" name="estado" value="motivada"> Motivada</label>
-          </div>
+      <!-- Google Form iframe wrapper -->
+      <div id="gform-wrap" style="
+        position: relative;
+        border: 1px solid rgba(201,168,76,0.15);
+        background: rgba(201,168,76,0.02);
+        overflow: hidden;
+      ">
+        <!-- Loading state -->
+        <div id="gform-loading" style="
+          position: absolute; inset: 0;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          gap: 16px; z-index: 2;
+          background: rgba(8,6,8,0.97);
+          pointer-events: none;
+          transition: opacity 0.6s;
+        ">
+          <div style="
+            width: 36px; height: 36px;
+            border: 1px solid rgba(201,168,76,0.3);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+          "></div>
+          <span style="font-family:'Raleway',sans-serif; font-size:10px; letter-spacing:4px; color:var(--gold); opacity:0.6; text-transform:uppercase;">A carregar</span>
         </div>
 
-        <div class="form-divider"></div>
-
-        <!-- SAÚDE -->
-        <p class="form-section-title">— Estado de Saúde</p>
-        
-        <div class="form-group">
-          <label>Tens alguma condição de saúde diagnosticada? *</label>
-          <div class="radio-group">
-            <label class="radio-item"><input type="radio" name="saude" value="nao" required> Não</label>
-            <label class="radio-item"><input type="radio" name="saude" value="sim"> Sim</label>
-          </div>
-        </div>
-        
-        <div class="form-group" id="saude_descricao_wrapper" style="display:none;">
-          <label for="saude_descricao">Descreve a condição (opcional)</label>
-          <textarea id="saude_descricao" name="saude_descricao" placeholder="Partilha o que achares relevante…"></textarea>
-        </div>
-        
-        <div class="form-group">
-          <label>Assinala se alguma das seguintes condições se aplica a ti:</label>
-          <div class="checkbox-group">
-            <label class="checkbox-item"><input type="checkbox" name="condicoes" value="tensao_alta"> <span>Tensão arterial alta</span></label>
-            <label class="checkbox-item"><input type="checkbox" name="condicoes" value="cardiaco"> <span>Problemas cardíacos</span></label>
-            <label class="checkbox-item"><input type="checkbox" name="condicoes" value="respiratorio"> <span>Problemas respiratórios</span></label>
-            <label class="checkbox-item"><input type="checkbox" name="condicoes" value="ansiedade"> <span>Ansiedade ou ataques de pânico</span></label>
-            <label class="checkbox-item"><input type="checkbox" name="condicoes" value="depressao"> <span>Depressão</span></label>
-            <label class="checkbox-item"><input type="checkbox" name="condicoes" value="gravidez"> <span>Gravidez</span></label>
-            <label class="checkbox-item"><input type="checkbox" name="condicoes" value="lesoes"> <span>Lesões físicas relevantes</span></label>
-            <label class="checkbox-item"><input type="checkbox" name="condicoes" value="nenhuma"> <span>Nenhuma das anteriores</span></label>
-          </div>
-        </div>
-
-        <!-- AVISO -->
-        <div class="aviso">
-          ⚠️ Algumas práticas incluem respiração ativa que pode influenciar o sistema nervoso e a tensão arterial. Se tens tensão arterial alta ou qualquer condição médica, adapta o ritmo da respiração e respeita sempre os limites do teu corpo.
-        </div>
-        
-        <div class="form-group">
-          <label class="checkbox-item" style="cursor:pointer;">
-            <input type="checkbox" name="aviso_lido" required>
-            <span>☑️ Declaro que li e compreendi as indicações acima e assumo responsabilidade pela minha participação.</span>
-          </label>
-        </div>
-
-        <div class="form-divider"></div>
-
-        <!-- COMPROMISSO -->
-        <p class="form-section-title">— Compromisso</p>
-        
-        <div class="form-group">
-          <label class="checkbox-item" style="cursor:pointer;">
-            <input type="checkbox" name="compromisso" required>
-            <span>☑️ Comprometo-me a participar com responsabilidade e respeito pelo meu processo durante os 40 dias.</span>
-          </label>
-        </div>
-
-        <!-- SUBMIT -->
-        <div class="submit-area">
-          <button type="submit" class="btn-primary">👉 Entrar no Desafio</button>
-          <p class="submit-note">Os teus dados são tratados com total confidencialidade.</p>
-        </div>
-      </form>
-
-      <!-- PAGAMENTO STRIPE -->
-      <div class="payment-section">
-        <span class="payment-title">— Pagamento Seguro</span>
-        <a href="STRIPE_LINK_AQUI" class="stripe-btn" id="stripeBtn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.5 6.5c1.38 0 2.5 1.12 2.5 2.5S12.88 11.5 11.5 11.5 9 10.38 9 9s1.12-2.5 2.5-2.5zm0 11c-2.21 0-4.16-1.12-5.33-2.84C7.5 13.09 10.96 12 11.5 12s4 1.09 5.33 2.66C15.66 16.38 13.71 17.5 11.5 17.5z"/></svg>
-          Garantir o meu lugar · €39,99
-        </a>
-        <p class="payment-note">
-          Após a inscrição, recebes tudo diretamente no teu email e acesso ao grupo WhatsApp.<br>
-          Pagamento 100% seguro via Stripe.
-        </p>
+        <iframe
+          id="gform-iframe"
+          src="https://docs.google.com/forms/d/18uAKPn81__vcd84N6Qnu0tsNV3qGLcUdPPBFBU56Z_Y/viewform?embedded=true"
+          width="100%"
+          height="1800"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          scrolling="no"
+          onload="iframeLoaded()"
+          style="display:block; opacity:0; transition: opacity 0.6s;"
+        >A carregar…</iframe>
       </div>
 
-    </div><!-- /form-wrapper -->
+      <!-- Corner decorations -->
+      <div style="position:absolute; top:-1px; left:-1px; width:20px; height:20px; border-top:2px solid var(--gold); border-left:2px solid var(--gold); opacity:0.5; pointer-events:none;"></div>
+      <div style="position:absolute; bottom:-1px; right:-1px; width:20px; height:20px; border-bottom:2px solid var(--gold); border-right:2px solid var(--gold); opacity:0.5; pointer-events:none;"></div>
+    </div>
+
+    <!-- STRIPE PAYMENT -->
+    <div class="payment-section reveal reveal-delay-2">
+      <span class="payment-title">— Pagamento Seguro</span>
+      <a href="STRIPE_LINK_AQUI" class="stripe-btn" id="stripeBtn">
+        Garantir o meu lugar · €39,99
+      </a>
+      <p class="payment-note">
+        Após a inscrição, recebes tudo diretamente no teu email e acesso ao grupo WhatsApp.<br>
+        Pagamento 100% seguro via Stripe.
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -1561,6 +1546,16 @@
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 50);
   }, { passive: true });
+
+
+  // ── GOOGLE FORM LOADER ──
+  function iframeLoaded() {
+    const iframe = document.getElementById('gform-iframe');
+    const loading = document.getElementById('gform-loading');
+    iframe.style.opacity = '1';
+    loading.style.opacity = '0';
+    setTimeout(() => loading.style.display = 'none', 600);
+  }
 
   // ── FIRE PARTICLES ──
   const container = document.getElementById('particles');
