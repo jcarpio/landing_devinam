@@ -1456,7 +1456,7 @@
       <div id="gform-wrap" style="
         position: relative;
         border: 1px solid rgba(201,168,76,0.15);
-        background: rgba(201,168,76,0.02);
+        background: #080608;
         overflow: hidden;
       ">
         <!-- Loading state -->
@@ -1489,7 +1489,12 @@
           marginwidth="0"
           scrolling="no"
           onload="iframeLoaded()"
-          style="display:block; opacity:0; transition: opacity 0.6s;"
+          style="
+            display:block;
+            opacity:0;
+            transition: opacity 0.6s;
+            filter: invert(1) hue-rotate(180deg) sepia(0.2) brightness(0.88) saturate(1.2);
+          "
         >A carregar…</iframe>
       </div>
 
