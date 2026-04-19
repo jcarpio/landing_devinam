@@ -355,12 +355,12 @@
 
   .section-tag {
     font-family: 'Raleway', sans-serif;
-    font-weight: 200;
-    letter-spacing: 8px;
-    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    font-size: 11px;
     text-transform: uppercase;
     color: var(--gold);
-    opacity: 0.7;
+    opacity: 0.85;
     display: block;
     margin-bottom: 16px;
   }
@@ -1065,6 +1065,81 @@
     color: var(--muted);
     font-style: italic;
     margin-top: 20px;
+  }
+
+
+  /* ── MOBILE FIXES ── */
+  @media (max-width: 768px) {
+
+    /* Body text larger on mobile */
+    body { font-size: 20px; }
+
+    .hero-body { font-size: 1.2rem; }
+    .desafio-text { font-size: 1.2rem; }
+    .call-text { font-size: 1.2rem; }
+    .benefit-desc { font-size: 1.1rem; }
+    .recebe-content span { font-size: 1.15rem; }
+    .compromisso-text { font-size: 1.3rem; }
+    .beneficios-intro { font-size: 1.15rem; }
+    .price-poem { font-size: 1.2rem; }
+    .form-sub { font-size: 1.15rem; }
+
+    /* Section tags more visible */
+    .section-tag {
+      font-size: 13px !important;
+      letter-spacing: 5px !important;
+      opacity: 1 !important;
+      color: var(--gold) !important;
+      font-weight: 400 !important;
+    }
+
+    /* Hero eyebrow */
+    .hero-eyebrow {
+      font-size: 13px !important;
+      letter-spacing: 5px !important;
+      opacity: 1 !important;
+    }
+
+    /* Scrollable iframe on mobile */
+    #gform-wrap {
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      max-height: 90vh;
+    }
+    #gform-iframe {
+      height: 2800px !important;
+    }
+
+    /* Payment title */
+    .payment-title {
+      font-size: 13px !important;
+      letter-spacing: 5px !important;
+      opacity: 1 !important;
+    }
+
+    /* Form section titles */
+    .form-section-title {
+      font-size: 13px !important;
+      letter-spacing: 5px !important;
+      opacity: 1 !important;
+    }
+
+    /* Divider text */
+    .divider span { font-size: 16px !important; }
+
+    /* Call items padding */
+    .call-item { padding: 20px 0; }
+
+    /* Benefit cards */
+    .benefit-desc { font-size: 1.1rem; }
+
+    /* Recebes */
+    .recebe-content strong { font-size: 0.9rem; }
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 19px; }
+    .section-tag { font-size: 12px !important; }
   }
 
   /* ═══════════════════════════
